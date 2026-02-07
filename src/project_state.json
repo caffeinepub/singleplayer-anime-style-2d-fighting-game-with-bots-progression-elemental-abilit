@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "2D anime-style Naruto-inspired fighting game focused on singleplayer PvP/PvE matches against bots/bosses with leveling progression, unlockable movesets, elemental abilities, and a Sharingan C-spec power.",
+  "architectural_notes": [
+    "Game is 2D anime-style fighting game with short session length (5–15 minutes)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- 2D anime fighting arena background, side-view, original ninja dojo/forest vibe (arena-bg.dim_1920x1080.png)\n- 2D anime-style player fighter sprite sheet, original character, idle/walk/attack/block/hit frames (fighter-player-sheet.dim_1024x1024.png)\n- 2D anime-style enemy fighter sprite sheet, original character, idle/walk/attack/block/hit frames (fighter-enemy-sheet.dim_1024x1024.png)\n- Boss enemy sprite sheet, larger silhouette, aura effects, idle/attack/hit frames (fighter-boss-sheet.dim_1024x1024.png)\n- HUD frame set with health bar frame, ability bar frame, round counter frame (hud-frames.dim_1024x256.png)\n- Element icon set: fire, water, earth, lightning in consistent style (element-icons.dim_512x128.png)\n- Sharingan-like eye icon in original style (c-spec-eye-icon.dim_128x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-playable-singleplayer-2d-anime-style-fighting-game-in-the-react-frontend-with-a-match-flow-of-fighting-against-ai-opponents-bots-and-boss-variants-supporting-a-5-15-minute-session-length",
+      "title": "Create a playable singleplayer 2D anime-style fighting game in the React frontend with a match flow of fighting against AI opponents (bots) and boss variants, supporting a 5–15 minute session length.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-match-rules-rounds-are-best-of-3-with-a-win-by-2-condition-and-clearly-display-round-score-current-round-outcome-and-match-winner-in-the-ui",
+      "title": "Implement match rules: rounds are best-of-3 with a win-by-2 condition, and clearly display round score, current round outcome, and match winner in the UI.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-control-scheme-and-input-support-pc-controls-wasd-movement-mouse-button-1-attack-mouse-button-2-block-keys-1-6-for-abilities-and-add-support-for-touch-controls-and-gamepad-input-mappings-at-least-basic-movement-attack-block-ability-selection",
+      "title": "Implement the control scheme and input support: PC controls (WASD movement, mouse button 1 attack, mouse button 2 block, keys 1–6 for abilities), and add support for touch controls and gamepad input mappings (at least basic movement/attack/block/ability selection).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-progression-system-that-awards-xp-per-match-win-20-xp-loss-5-xp-levels-up-at-every-100-xp-and-caps-at-level-100-display-xp-and-level-in-the-ui-and-persist-the-player-profile",
+      "title": "Add a progression system that awards XP per match (win = 20 XP, loss = 5 XP), levels up at every 100 XP, and caps at level 100. Display XP and level in the UI and persist the player profile.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-loadout-system-with-10-distinct-martial-arts-fighting-styles-and-a-set-of-unlockable-moves-ability-sets-each-style-must-have-identifiable-differences-e-g-speed-damage-range-defense-and-be-selectable-before-a-match",
+      "title": "Implement a loadout system with 10 distinct martial arts fighting styles and a set of unlockable moves/ability sets. Each style must have identifiable differences (e.g., speed, damage, range, defense) and be selectable before a match.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-elemental-abilities-for-fire-water-earth-and-lightning-and-map-them-into-the-1-6-ability-slots-with-cooldowns-energy-costs-as-needed-abilities-must-have-clear-visuals-and-gameplay-effects-damage-control-defense-mobility-etc",
+      "title": "Add elemental abilities for fire, water, earth, and lightning, and map them into the 1–6 ability slots (with cooldowns/energy costs as needed). Abilities must have clear visuals and gameplay effects (damage, control, defense, mobility, etc.).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-sharingan-c-spec-ability-as-a-distinct-power-that-when-activated-grants-auto-dodge-behavior-for-a-limited-duration-and-buffs-including-10-damage-increased-speed-and-increased-hp-include-a-clear-activation-input-duration-indicator-and-cooldown",
+      "title": "Implement the Sharingan C-spec ability as a distinct power that, when activated, grants: auto-dodge behavior for a limited duration and buffs including +10 damage, increased speed, and increased HP. Include a clear activation input, duration indicator, and cooldown.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-ai-opponents-including-standard-bots-and-boss-variants-bots-must-be-able-to-navigate-attack-block-and-use-a-subset-of-abilities-bosses-must-have-at-least-one-unique-behavior-ability-compared-to-standard-bots",
+      "title": "Create AI opponents including standard bots and boss variants. Bots must be able to navigate, attack, block, and use a subset of abilities; bosses must have at least one unique behavior/ability compared to standard bots.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-coherent-consistent-visual-theme-for-the-entire-ui-and-game-hud-with-a-distinct-2d-anime-inspired-style-colors-typography-panels-buttons-hud-frames-and-apply-it-consistently-across-screens",
+      "title": "Add a coherent, consistent visual theme for the entire UI and game HUD with a distinct 2D anime-inspired style (colors, typography, panels, buttons, HUD frames) and apply it consistently across screens.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-and-include-required-static-image-assets-sprites-ui-background-in-frontend-public-assets-generated-and-render-them-in-the-app-do-not-serve-images-from-the-backend",
+      "title": "Create and include required static image assets (sprites/UI/background) in frontend/public/assets/generated and render them in the app (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Core combat loop: fight opponents (players conceptually, bots/bosses in singleplayer), level up, unlock movesets/abilities/power-ups",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Singleplayer modes: PvE boss fights and bot-based PvP-style matches",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Control scheme support: PC (WASD movement, MB1 attack, MB2 block, 1-6 abilities) plus keyboard/mouse/touch/gamepad input options",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Match rules: best of 3 with win-by-2 condition",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Progression system: win = 20 XP, loss = 5 XP; 100 XP per level; max level 100",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Abilities/content: 10 martial arts fighting styles; elemental abilities (fire, water, earth, lightning)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "C-spec Sharingan ability: auto-dodge plus +10 damage buff, speed buff, and HP buff",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Session design target: 5–15 minute match/session length",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "On the backend (single Motoko actor), implement persistent player profile storage keyed to the signed-in principal (Internet Identity), including fields for total XP, level, and unlocked move sets/abilities. Provide canister methods for: getProfile, awardMatchXp(result), and updateUnlocks.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Singleplayer anime-style 2D fighting game with bots, progression, elemental abilities, and Sharingan C-Spec",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

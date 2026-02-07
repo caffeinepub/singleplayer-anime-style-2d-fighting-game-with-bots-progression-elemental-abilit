@@ -1,0 +1,223 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-playable-singleplayer-2d-anime-style-fighting-game-in-the-react-frontend-with-a-match-flow-of-fighting-against-ai-opponents-bots-and-boss-variants-supporting-a-5-15-minute-session-length",
+      "featureTitle": "Create a playable singleplayer 2D anime-style fighting game in the React frontend with a match flow of fighting against AI opponents (bots) and boss variants, supporting a 5–15 minute session length.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/game/engine/GameEngine.ts",
+        "frontend/src/pages/FightPage.tsx",
+        "frontend/src/pages/LoadoutPage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-match-rules-rounds-are-best-of-3-with-a-win-by-2-condition-and-clearly-display-round-score-current-round-outcome-and-match-winner-in-the-ui",
+      "featureTitle": "Implement match rules: rounds are best-of-3 with a win-by-2 condition, and clearly display round score, current round outcome, and match winner in the UI.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/hud/RoundScoreboard.tsx",
+        "frontend/src/pages/FightPage.tsx",
+        "frontend/src/pages/ResultsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-control-scheme-and-input-support-pc-controls-wasd-movement-mouse-button-1-attack-mouse-button-2-block-keys-1-6-for-abilities-and-add-support-for-touch-controls-and-gamepad-input-mappings-at-least-basic-movement-attack-block-ability-selection",
+      "featureTitle": "Implement the control scheme and input support: PC controls (WASD movement, mouse button 1 attack, mouse button 2 block, keys 1–6 for abilities), and add support for touch controls and gamepad input mappings (at least basic movement/attack/block/ability selection).",
+      "files": [
+        "frontend/src/components/controls/TouchControlsOverlay.tsx",
+        "frontend/src/components/hud/AbilityBar.tsx",
+        "frontend/src/game/input/InputManager.ts",
+        "frontend/src/pages/FightPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-progression-system-that-awards-xp-per-match-win-20-xp-loss-5-xp-levels-up-at-every-100-xp-and-caps-at-level-100-display-xp-and-level-in-the-ui-and-persist-the-player-profile",
+      "featureTitle": "Add a progression system that awards XP per match (win = 20 XP, loss = 5 XP), levels up at every 100 XP, and caps at level 100. Display XP and level in the UI and persist the player profile.",
+      "files": [
+        "frontend/src/components/profile/ProfileBadge.tsx",
+        "frontend/src/components/profile/ProfileSetupModal.tsx",
+        "frontend/src/pages/MainMenuPage.tsx",
+        "frontend/src/pages/ResultsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-loadout-system-with-10-distinct-martial-arts-fighting-styles-and-a-set-of-unlockable-moves-ability-sets-each-style-must-have-identifiable-differences-e-g-speed-damage-range-defense-and-be-selectable-before-a-match",
+      "featureTitle": "Implement a loadout system with 10 distinct martial arts fighting styles and a set of unlockable moves/ability sets. Each style must have identifiable differences (e.g., speed, damage, range, defense) and be selectable before a match.",
+      "files": [
+        "frontend/src/components/loadout/StylePicker.tsx",
+        "frontend/src/game/content/styles.ts",
+        "frontend/src/game/engine/GameEngine.ts",
+        "frontend/src/pages/LoadoutPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-elemental-abilities-for-fire-water-earth-and-lightning-and-map-them-into-the-1-6-ability-slots-with-cooldowns-energy-costs-as-needed-abilities-must-have-clear-visuals-and-gameplay-effects-damage-control-defense-mobility-etc",
+      "featureTitle": "Add elemental abilities for fire, water, earth, and lightning, and map them into the 1–6 ability slots (with cooldowns/energy costs as needed). Abilities must have clear visuals and gameplay effects (damage, control, defense, mobility, etc.).",
+      "files": [
+        "frontend/src/components/hud/AbilityBar.tsx",
+        "frontend/src/game/engine/GameEngine.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-sharingan-c-spec-ability-as-a-distinct-power-that-when-activated-grants-auto-dodge-behavior-for-a-limited-duration-and-buffs-including-10-damage-increased-speed-and-increased-hp-include-a-clear-activation-input-duration-indicator-and-cooldown",
+      "featureTitle": "Implement the Sharingan C-spec ability as a distinct power that, when activated, grants: auto-dodge behavior for a limited duration and buffs including +10 damage, increased speed, and increased HP. Include a clear activation input, duration indicator, and cooldown.",
+      "files": [
+        "frontend/src/components/hud/CSpecIndicator.tsx",
+        "frontend/src/game/engine/GameEngine.ts",
+        "frontend/src/game/input/InputManager.ts",
+        "frontend/src/pages/FightPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-ai-opponents-including-standard-bots-and-boss-variants-bots-must-be-able-to-navigate-attack-block-and-use-a-subset-of-abilities-bosses-must-have-at-least-one-unique-behavior-ability-compared-to-standard-bots",
+      "featureTitle": "Create AI opponents including standard bots and boss variants. Bots must be able to navigate, attack, block, and use a subset of abilities; bosses must have at least one unique behavior/ability compared to standard bots.",
+      "files": [
+        "frontend/src/game/engine/GameEngine.ts",
+        "frontend/src/pages/MainMenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-coherent-consistent-visual-theme-for-the-entire-ui-and-game-hud-with-a-distinct-2d-anime-inspired-style-colors-typography-panels-buttons-hud-frames-and-apply-it-consistently-across-screens",
+      "featureTitle": "Add a coherent, consistent visual theme for the entire UI and game HUD with a distinct 2D anime-inspired style (colors, typography, panels, buttons, HUD frames) and apply it consistently across screens.",
+      "files": [
+        "frontend/src/components/hud/FightHud.tsx",
+        "frontend/src/components/layout/GameLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/FightPage.tsx",
+        "frontend/src/pages/LoadoutPage.tsx",
+        "frontend/src/pages/MainMenuPage.tsx",
+        "frontend/src/pages/ResultsPage.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-and-include-required-static-image-assets-sprites-ui-background-in-frontend-public-assets-generated-and-render-them-in-the-app-do-not-serve-images-from-the-backend",
+      "featureTitle": "Create and include required static image assets (sprites/UI/background) in frontend/public/assets/generated and render them in the app (do not serve images from the backend).",
+      "files": [
+        "frontend/src/components/hud/FightHud.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

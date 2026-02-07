@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup for navigation between menu, loadout, fight, and results pages with ThemeProvider and Toaster.",
+  "frontend/src/pages/MainMenuPage.tsx": "Main menu page with mode selection (bot/boss), authentication UI, profile display, and navigation to loadout screen.",
+  "frontend/src/pages/LoadoutPage.tsx": "Pre-match loadout configuration page for selecting fighting style and ability slots before entering the arena.",
+  "frontend/src/pages/FightPage.tsx": "Fight scene page that initializes the game engine, renders the canvas, displays HUD, and handles match completion navigation.",
+  "frontend/src/pages/ResultsPage.tsx": "Match results page showing victory/defeat, round summary, XP gained, level progress, and options to restart or return to menu.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for fetching player profile, saving profile, and awarding match XP with proper cache invalidation.",
+  "frontend/src/components/profile/ProfileSetupModal.tsx": "Modal dialog for first-time users to set their fighter name when authenticated.",
+  "frontend/src/components/profile/ProfileBadge.tsx": "Displays player name, level, and XP progress bar in a compact card format.",
+  "frontend/src/components/layout/GameLayout.tsx": "Shared layout wrapper with background gradient, arena background overlay, and footer attribution.",
+  "frontend/src/components/loadout/StylePicker.tsx": "Grid of 10 fighting styles with stats display and selection highlighting.",
+  "frontend/src/components/loadout/AbilitySlotPicker.tsx": "Interface for selecting elemental abilities into 6 slots with available abilities grid.",
+  "frontend/src/components/hud/FightHud.tsx": "Complete fight HUD overlay with health bars, round score, ability bar, C-spec indicator, and round/match result overlays.",
+  "frontend/src/components/hud/RoundScoreboard.tsx": "Displays current round number and player vs enemy round wins.",
+  "frontend/src/components/hud/AbilityBar.tsx": "Shows 6 ability slots with icons, cooldown overlays, and keyboard number indicators.",
+  "frontend/src/components/hud/CSpecIndicator.tsx": "Sharingan C-spec status indicator with icon, active/cooldown state, and progress bar.",
+  "frontend/src/components/controls/TouchControlsOverlay.tsx": "On-screen touch controls for mobile with movement d-pad, attack/block buttons, and C-spec activation.",
+  "frontend/src/game/content/styles.ts": "Defines 10 fighting styles and 8 elemental abilities with stats, icons, and gameplay properties.",
+  "frontend/src/game/input/InputManager.ts": "Unified input handling for keyboard (WASD, 1-6, C), mouse (MB1/MB2), and gamepad with action normalization.",
+  "frontend/src/game/engine/GameEngine.ts": "Core 2D game engine with fighter physics, combat system, AI, round/match logic, C-spec buffs, and canvas rendering; fixed type error by adding 'none' to element union type for empty ability slots.",
+  "frontend/src/index.css": "Global styles with anime-inspired OKLCH color system featuring purple primary, orange accent, and dark theme.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, glow shadows, Inter font family, and anime-themed design system."
+}

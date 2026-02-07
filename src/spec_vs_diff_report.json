@@ -1,0 +1,165 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-07T04:00:15.880Z",
+  "summary": "Diff adds a React singleplayer 2D canvas-based fighting framework with loadout (10 styles), elemental abilities data, HUD components (ability bar, round scoreboard, C-spec indicator), keyboard/mouse + basic gamepad + partial touch controls, and a Motoko backend actor with profile/XP awarding. Several BuildRequest requirements are either not implemented or not verifiable from the provided diff summary (notably: win-by-2 match rules, full input mappings for touch/gamepad abilities 1–6, required image assets usage, updateUnlocks backend API, and explicit bot/boss unique behavior beyond HP).",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Implement match rules: best-of-3 with a win-by-2 condition, and clearly display round score, current round outcome, and match winner; allow restart from match-end screen.",
+      "reason": "UI components for round score and match/round overlays exist, but the diff summary does not show the match rules logic enforcing best-of-3 with win-by-2, nor a match-end screen with a restart action.",
+      "evidence": [
+        "frontend/src/components/hud/FightHud.tsx",
+        "frontend/src/game/engine/GameEngine.ts (truncated)",
+        "frontend/src/App.tsx (routes include /results but ResultsPage not shown)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Add support for touch controls and gamepad input mappings including abilities 1–6 (basic movement/attack/block/ability selection).",
+      "reason": "Touch overlay provides movement + ATK/BLK and C-SPEC only; no on-screen controls for abilities 1–6. Gamepad mapping supports movement/attack/block/C-SPEC only; no mechanism for abilities 1–6.",
+      "evidence": [
+        "frontend/src/components/controls/TouchControlsOverlay.tsx",
+        "frontend/src/game/input/InputManager.ts"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Progression system: award XP per match (win=20, loss=5), level every 100 XP up to level 100; display XP/level; persist player profile across reloads using backend.",
+      "reason": "Backend awards XP with constants (20/5) and level calculation is referenced but truncated; however the frontend diff shown does not include match-completion integration that calls awardMatchXp after a completed match, nor any results/restart flow implementation. Persistence/UI display exists via ProfileBadge, but end-to-end awarding after match completion is not evidenced.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/components/profile/ProfileBadge.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/game/engine/GameEngine.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Backend methods: getProfile, awardMatchXp(result), and updateUnlocks; keyed by signed-in principal; enforce level cap and correct XP/level calculation; frontend uses React Query.",
+      "reason": "Backend method names do not match the requested API: it provides getPlayerProfile/getCallerPlayerProfile and saveCallerPlayerProfile, but no updateUnlocks method is shown. Also awardMatchXp takes a Bool (didWin) rather than a result type as requested. Level/XP calculation details and cap enforcement are not fully verifiable due to truncation.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Elemental abilities (fire/water/earth/lightning) mapped into ability slots 1–6 with clear visuals/effects; cooldown communicated in UI using icons.",
+      "reason": "Elemental abilities data exists and cooldown UI is shown, but visuals/icons are implemented as emoji strings rather than using the required element icon image set. Also no touch/gamepad mapping exists for triggering abilities 1–6 (see REQ-3). Combat effects/visuals of abilities are not verifiable due to GameEngine truncation.",
+      "evidence": [
+        "frontend/src/game/content/styles.ts",
+        "frontend/src/components/hud/AbilityBar.tsx",
+        "frontend/src/game/engine/GameEngine.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Sharingan C-spec ability grants auto-dodge + buffs (+10 damage, increased speed, increased HP) with activation input, duration indicator, cooldown; observable auto-dodge.",
+      "reason": "HUD indicator and an input mapping (key 'c') exist, but the diff summary does not show the underlying gameplay implementation for buffs (+10 damage/speed/HP) nor auto-dodge behavior in the engine (engine is truncated). Touch control includes a C-SPEC button but gamepad mapping only includes a C-SPEC button without ability mapping; auto-dodge not evidenced.",
+      "evidence": [
+        "frontend/src/components/hud/CSpecIndicator.tsx",
+        "frontend/src/game/input/InputManager.ts",
+        "frontend/src/components/controls/TouchControlsOverlay.tsx",
+        "frontend/src/game/engine/GameEngine.ts (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "AI opponents: standard bots can move/attack/block/use subset of abilities; boss has at least one unique behavior/ability; user can choose bot vs boss from menu/mode select.",
+      "reason": "GameEngine sets boss HP higher, but no unique boss behavior/ability is evidenced. AI behavior (move/attack/block/abilities) is not verifiable because the GameEngine update/AI logic is truncated. Mode selection UI is not shown in the diff summary (pages are not included here).",
+      "evidence": [
+        "frontend/src/game/engine/GameEngine.ts (truncated)",
+        "frontend/src/App.tsx (routes present but pages not shown)"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Consistent anime-inspired UI theme; HUD uses HUD frame assets; HUD clearly communicates health, block/state, ability slots 1–6, round score, and Sharingan state.",
+      "reason": "Theme variables and HUD components exist, but HUD does not show block/state explicitly. Also required HUD frame image assets are not shown as being used (components use Card/Progress styling, not the specified HUD frame set).",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/src/components/hud/FightHud.tsx"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Create/include required static image assets under frontend/public/assets/generated with exact filenames; render them (background + HUD frames + element icons + sprites).",
+      "reason": "Code references the arena background and C-spec icon filenames, but the diff summary does not show the actual asset files being added (and omitted files are noted). HUD frame set, element icon set, and sprite sheets are not evidenced as present or rendered; AbilityBar uses emoji instead of the required element icon set.",
+      "evidence": [
+        "frontend/src/game/engine/GameEngine.ts (truncated)",
+        "frontend/src/components/hud/CSpecIndicator.tsx",
+        "frontend/src/components/layout/GameLayout.tsx",
+        "frontend/src/components/hud/AbilityBar.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend access control initialization via secret token and authorization mixins (admin token via URL param).",
+      "reason": "BuildRequest requires Internet Identity keyed profiles but does not request a secret-token-based access-control initialization flow or admin token URL parameter handling.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Additional backend APIs not requested (e.g., getAvailableAbilities, getAbilityById, saveCallerPlayerProfile, getPlayerProfile by principal).",
+      "reason": "BuildRequest explicitly asked for getProfile, awardMatchXp(result), and updateUnlocks. The diff adds multiple extra profile/ability endpoints and a save profile endpoint.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "description": "Footer promoting an external site (caffeine.ai) and “Built with ❤️” text.",
+      "reason": "Not requested in BuildRequest; adds extra user-facing text/branding.",
+      "evidence": [
+        "frontend/src/components/layout/GameLayout.tsx"
+      ]
+    },
+    {
+      "description": "Profile fields and UI for name/avatar beyond XP/level (profile setup modal with custom name).",
+      "reason": "BuildRequest only requires XP/level/unlocks persistence and display; name/avatar/profile setup flow is additional scope.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/components/profile/ProfileSetupModal.tsx",
+        "frontend/src/components/profile/ProfileBadge.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.66,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/controls/TouchControlsOverlay.tsx",
+    "frontend/src/components/hud/AbilityBar.tsx",
+    "frontend/src/components/hud/CSpecIndicator.tsx",
+    "frontend/src/components/hud/FightHud.tsx",
+    "frontend/src/components/hud/RoundScoreboard.tsx",
+    "frontend/src/components/layout/GameLayout.tsx",
+    "frontend/src/components/loadout/AbilitySlotPicker.tsx",
+    "frontend/src/components/loadout/StylePicker.tsx",
+    "frontend/src/components/profile/ProfileBadge.tsx",
+    "frontend/src/components/profile/ProfileSetupModal.tsx",
+    "frontend/src/game/content/styles.ts",
+    "frontend/src/game/engine/GameEngine.ts",
+    "frontend/src/game/input/InputManager.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/FightPage.tsx",
+    "frontend/src/pages/LoadoutPage.tsx",
+    "frontend/src/pages/MainMenuPage.tsx",
+    "frontend/src/pages/ResultsPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

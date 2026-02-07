@@ -1,0 +1,426 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "2D anime-inspired singleplayer fighting game (React) with AI, progression, elemental abilities, and Sharingan C-spec",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build the core singleplayer 2D fight loop (menu -> fight scene vs AI/boss) with anime-inspired 2D rendering and session pacing.",
+      "acceptanceCriteria": [
+        "User can start a match from a main menu and be placed into a fight scene against an AI opponent.",
+        "Match play completes within a typical 5–15 minute session (e.g., via round pacing and/or AI/boss tuning).",
+        "Fight scene is rendered in 2D (canvas/SVG/DOM-based) with an anime-inspired look and feel."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with routes for Main Menu, Loadout, Fight, and Results screens; ensure navigation supports starting a match and returning to menu. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "create",
+          "description": "Implement the main menu UI to start a standard bot match or boss match, and to enter loadout selection before a fight. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LoadoutPage.tsx",
+          "operation": "create",
+          "description": "Implement pre-match selection flow (style + ability slots) and a clear Start Match CTA that transitions into the fight scene. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/FightPage.tsx",
+          "operation": "create",
+          "description": "Implement the fight scene container (2D game surface + HUD) and the match session loop timing/pacing for a 5–15 minute experience. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine/GameEngine.ts",
+          "operation": "create",
+          "description": "Create a lightweight 2D game loop (tick/update/render) with deterministic simulation for player + AI, hit detection, health, block, and round timers to support a 5–15 minute session. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/render/CanvasRenderer.ts",
+          "operation": "create",
+          "description": "Implement a 2D canvas renderer for fighters, effects, and background with an anime-inspired look (sprites, impact effects, screen shake). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/content/modes.ts",
+          "operation": "create",
+          "description": "Define match modes (standard bot, boss) and tuning presets (damage/HP/time/AI aggressiveness) that keep typical sessions within 5–15 minutes. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement best-of-3 rounds with win-by-2 and show round/match outcomes with restart.",
+      "acceptanceCriteria": [
+        "Match requires a player to have at least 2 round wins AND lead by 2 to win the match.",
+        "UI shows current round wins for player and AI, and shows a match-end screen when a winner is determined.",
+        "User can restart a match from the match-end screen."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/rules/matchRules.ts",
+          "operation": "create",
+          "description": "Implement best-of-3, win-by-2 round logic and a match-state reducer (round wins, round end, match end) consumable by the engine/UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/RoundScoreboard.tsx",
+          "operation": "create",
+          "description": "Create a HUD component that displays player/AI round wins, current round result messaging, and match winner state. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ResultsPage.tsx",
+          "operation": "create",
+          "description": "Implement a match-end screen showing winner, round summary, XP gained (if applicable), and actions to restart or return to menu; wire Restart to reset engine and start a new match. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/FightPage.tsx",
+          "operation": "modify",
+          "description": "Integrate matchRules into the fight loop; detect round end, apply win-by-2 match completion, and navigate to Results on match end. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire ResultsPage route and ensure restart flow navigates back into FightPage with a fresh match state. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add unified input system for keyboard/mouse plus touch controls and basic gamepad mappings.",
+      "acceptanceCriteria": [
+        "Keyboard input: WASD moves the player character; 1–6 triggers the corresponding slotted ability when available.",
+        "Mouse input: MB1 triggers basic attack; MB2 triggers block while held (or toggled, but must be consistent and labeled).",
+        "Touch input: on-screen controls exist for movement, attack, block, and abilities 1–6 (can be radial or bar).",
+        "Gamepad input: left stick moves; at least one button attacks, one blocks, and a mechanism exists to trigger abilities 1–6 (e.g., bumper cycling + face buttons)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/input/InputManager.ts",
+          "operation": "create",
+          "description": "Create a unified input layer that normalizes keyboard, mouse, touch, and gamepad events into gameplay actions (move vector, attack, block, ability 1–6, C-spec). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/input/keyboardMouseBindings.ts",
+          "operation": "create",
+          "description": "Implement the required PC bindings: WASD movement, MB1 attack, MB2 block, keys 1–6 abilities; expose configuration for consistent hold/toggle behavior for block and label it in UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/input/gamepadBindings.ts",
+          "operation": "create",
+          "description": "Implement basic gamepad mapping: left stick movement, attack button, block button, and an ability selection/trigger mechanism to reach abilities 1–6 (e.g., cycle + confirm or modifiers). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/controls/TouchControlsOverlay.tsx",
+          "operation": "create",
+          "description": "Create on-screen touch controls for movement (virtual stick/dpad), attack, block, abilities 1–6, and C-spec activation; show only when touch is available or enabled. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/FightPage.tsx",
+          "operation": "modify",
+          "description": "Attach InputManager to the fight scene and feed normalized actions into the engine each tick; mount TouchControlsOverlay and ensure it drives the same action stream as keyboard/gamepad. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/AbilityBar.tsx",
+          "operation": "create",
+          "description": "Render ability slots 1–6 with labels/icons so keyboard/touch/gamepad mappings are discoverable and consistent. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement XP/level progression, show it in UI, and persist player profile via backend when authenticated (guest mode without backend writes).",
+      "acceptanceCriteria": [
+        "After each completed match, XP is awarded exactly per the rules (20 for win, 5 for loss).",
+        "Level increases by 1 each time total XP crosses a multiple of 100, and level never exceeds 100.",
+        "UI displays current XP progress toward next level and current level.",
+        "Player progression persists across page reloads (using the Internet Computer backend)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/usePlayerProfile.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch/save the caller player profile and to call the backend capability to award match XP after match completion; handle unauthenticated state by disabling backend writes. Use the selected authorization component’s frontend guidance (Internet Identity + React Query caching rules); verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/profile/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Prompt first-time authenticated users to set a display name (do not show principal id), and save it to the player profile; build with shadcn-ui Dialog/Button components by composition (do not modify immutable UI components). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/profile/ProfileBadge.tsx",
+          "operation": "create",
+          "description": "Show player name, level, and XP progress toward next level in the main menu and/or HUD; ensure English UI text. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/progression/xp.ts",
+          "operation": "create",
+          "description": "Implement client-side helpers that mirror rules (win=20 XP, loss=5 XP, +1 level per 100 XP, cap level at 100) for display and optimistic UI; treat backend as source of truth when authenticated. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ResultsPage.tsx",
+          "operation": "modify",
+          "description": "On match completion, call the backend capability to award XP when authenticated; display XP gained and updated level/XP; in guest mode, store progression locally without attempting backend writes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Integrate login/logout UI using the selected authorization component’s Internet Identity flow; show ProfileBadge; show ProfileSetupModal when authenticated but profile is missing; clear cached profile on logout. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Create a pre-match loadout with 10 distinct fighting styles that change combat stats/behavior and persist into the match.",
+      "acceptanceCriteria": [
+        "There are 10 selectable styles in a pre-match loadout screen.",
+        "Each style has at least one distinct gameplay/stat difference that affects combat outcomes.",
+        "Selection persists into the match and affects the player character behavior/stats."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/content/styles.ts",
+          "operation": "create",
+          "description": "Define 10 fighting styles (speed/damage/range/defense/block efficiency and/or mobility) with clear identifiers and balancing values used by the engine. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/loadout/StylePicker.tsx",
+          "operation": "create",
+          "description": "Implement a style selection UI for 10 styles with stat callouts and a selected state; compose from shadcn-ui components where helpful without modifying immutable files. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/state/loadoutState.ts",
+          "operation": "create",
+          "description": "Create loadout state (selected style + slotted abilities 1–6) that can be passed from LoadoutPage into FightPage and applied in engine initialization. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LoadoutPage.tsx",
+          "operation": "modify",
+          "description": "Wire StylePicker into the pre-match flow; persist selected style in loadoutState and ensure it is used when starting a match. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine/GameEngine.ts",
+          "operation": "modify",
+          "description": "Apply the selected fighting style modifiers to player stats/behavior (movement speed, attack damage, reach, block effectiveness, etc.) and ensure they impact combat outcomes. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add elemental abilities (fire, water, earth, lightning) and map them into ability slots 1–6 with cooldown/availability and visible effects.",
+      "acceptanceCriteria": [
+        "At least one ability exists for each element: fire, water, earth, lightning.",
+        "Abilities can be triggered via keys 1–6 and corresponding touch/gamepad mappings.",
+        "Abilities have visible effects and impact combat (e.g., deals damage, applies a status, creates a barrier, or changes movement).",
+        "Cooldown/availability is communicated in the UI (icons with timers/disabled state)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/content/abilities.ts",
+          "operation": "create",
+          "description": "Define abilities including at least one for each element (fire/water/earth/lightning), with gameplay effects (damage/status/defense/mobility), cooldowns, and resource/availability rules; map to ability slots 1–6 via loadout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/combat/AbilitySystem.ts",
+          "operation": "create",
+          "description": "Implement ability activation, cooldown tracking, cost checks, and effect application within the simulation (including status effects and projectiles/barriers if used). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/AbilityBar.tsx",
+          "operation": "modify",
+          "description": "Render slots 1–6 with element/ability iconography, cooldown overlays/timers, and disabled states that match availability; keep labels aligned with input mappings. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/render/EffectsRenderer.ts",
+          "operation": "create",
+          "description": "Render clear elemental visuals (flame burst, water wave, earth wall/spikes, lightning dash/strike) consistent with anime 2D style and readable hit feedback. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine/GameEngine.ts",
+          "operation": "modify",
+          "description": "Integrate AbilitySystem into the update loop and connect normalized input actions (ability 1–6) to ability triggers with correct cooldown gating. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement Sharingan C-spec: activation input/button, timed buffs (+10 damage, speed, HP), auto-dodge behavior, duration UI, and cooldown.",
+      "acceptanceCriteria": [
+        "Sharingan C-spec can be activated during a match via a defined input and/or on-screen button.",
+        "While active, the player receives: +10 damage (applied to relevant attacks), increased movement speed, increased max HP (or temporary HP), and auto-dodge triggers under defined conditions.",
+        "UI shows Sharingan active state and remaining duration, and shows cooldown when unavailable.",
+        "Auto-dodge is observable in gameplay (e.g., avoids incoming attacks with an animation/teleport/step)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/combat/CSpecSharingan.ts",
+          "operation": "create",
+          "description": "Implement the C-spec state machine (inactive/active/cooldown), duration tracking, buff application (+10 damage, speed, HP), and auto-dodge trigger rules (e.g., when an incoming hit is imminent) with observable movement/animation cues. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/input/InputManager.ts",
+          "operation": "modify",
+          "description": "Add a distinct action for C-spec activation and expose it to keyboard/mouse/touch/gamepad mappings (ensuring it does not conflict with abilities 1–6). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/CSpecIndicator.tsx",
+          "operation": "create",
+          "description": "Create HUD indicator for C-spec showing active state, remaining duration, and cooldown timer; include a clear on-screen activation button for touch users. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/FightPage.tsx",
+          "operation": "modify",
+          "description": "Mount and wire CSpecIndicator into the HUD; connect indicator/button to InputManager C-spec action and display current timers/state from the engine. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine/GameEngine.ts",
+          "operation": "modify",
+          "description": "Integrate CSpecSharingan into combat resolution so buffs affect attacks and survivability; ensure auto-dodge can negate/avoid incoming attacks in a visible, consistent way. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Implement AI opponents (standard bots + boss variants) with navigation, combat actions, and unique boss behavior; allow mode selection.",
+      "acceptanceCriteria": [
+        "Standard bot can move, attack, block, and occasionally use abilities.",
+        "Boss variant has higher stats and at least one unique move or phase/behavior not shared by standard bots.",
+        "User can choose between a standard bot match and a boss match from the menu or mode select screen."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/ai/BotBrain.ts",
+          "operation": "create",
+          "description": "Implement standard bot decision-making for movement, spacing, attacking, blocking, and occasional ability usage driven by the same action interface as the player. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/ai/BossBrain.ts",
+          "operation": "create",
+          "description": "Implement boss AI variant with higher stats and at least one unique behavior (e.g., phase shift at HP thresholds, unique ability pattern, or aggression mode) not used by standard bots. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/content/enemies.ts",
+          "operation": "create",
+          "description": "Define enemy presets for standard bots and bosses (stats, allowed abilities subset, tuning) used by match mode selection. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the user can select standard bot match vs boss match (mode select) and that the choice is passed into the match initialization. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/engine/GameEngine.ts",
+          "operation": "modify",
+          "description": "Instantiate and update the correct AI controller (BotBrain vs BossBrain) based on selected mode; ensure AI can navigate, attack, block, and use abilities. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Apply a consistent anime-inspired visual theme across all screens and HUD, including readable combat HUD elements.",
+      "acceptanceCriteria": [
+        "All screens (menu, loadout, fight HUD, results) share a consistent theme (typography, color palette, component styling).",
+        "Theme is not the default template look; it is visually distinct and appropriate for a 2D anime fighting game.",
+        "HUD clearly communicates health, block/state, ability slots 1–6, round score, and Sharingan state."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens and base styling (colors, typography, panel frames, button treatments) for an anime-inspired UI; keep all user-facing text in English. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with app-specific palette/typography/shadows suitable for an anime fighting HUD while remaining consistent across pages. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/GameLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout wrapper for menu/loadout/results screens (background, panels, consistent spacing) to enforce cohesive theming; compose from shadcn-ui primitives without modifying immutable paths. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/FightHud.tsx",
+          "operation": "create",
+          "description": "Create the complete fight HUD (health bars, block/state, ability slots 1–6, round score, Sharingan indicator) using the same theme and HUD frame assets. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MainMenuPage.tsx",
+          "operation": "modify",
+          "description": "Apply GameLayout and consistent themed components to the main menu (mode selection, profile badge, start buttons). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LoadoutPage.tsx",
+          "operation": "modify",
+          "description": "Apply GameLayout and consistent themed components to style/ability selection UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ResultsPage.tsx",
+          "operation": "modify",
+          "description": "Apply GameLayout and consistent themed components to results UI (winner, round summary, XP changes, restart/menu). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/FightPage.tsx",
+          "operation": "modify",
+          "description": "Mount FightHud over the 2D game surface and ensure HUD information is always readable during combat. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Add required generated static image assets under frontend/public/assets/generated and render them in the fight scene and HUD.",
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated with the exact filenames specified in the image requirements.",
+        "The fight scene uses the arena background asset.",
+        "The UI uses the HUD frame and icon set assets where applicable (abilities/elements/Sharingan)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/arena-bg.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated arena background image asset at the exact path and filename for use in the fight scene."
+        },
+        {
+          "path": "frontend/public/assets/generated/fighter-player-sheet.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the generated player fighter sprite sheet at the exact path and filename for animation rendering."
+        },
+        {
+          "path": "frontend/public/assets/generated/fighter-enemy-sheet.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the generated enemy fighter sprite sheet at the exact path and filename for animation rendering."
+        },
+        {
+          "path": "frontend/public/assets/generated/fighter-boss-sheet.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the generated boss sprite sheet at the exact path and filename for animation rendering."
+        },
+        {
+          "path": "frontend/public/assets/generated/hud-frames.dim_1024x256.png",
+          "operation": "create",
+          "description": "Add the generated HUD frames image asset at the exact path and filename for themed HUD rendering."
+        },
+        {
+          "path": "frontend/public/assets/generated/element-icons.dim_512x128.png",
+          "operation": "create",
+          "description": "Add the generated element icon set image asset at the exact path and filename for ability/HUD icons."
+        },
+        {
+          "path": "frontend/public/assets/generated/c-spec-eye-icon.dim_128x128.png",
+          "operation": "create",
+          "description": "Add the generated Sharingan-like eye icon at the exact path and filename for C-spec HUD indication."
+        },
+        {
+          "path": "frontend/src/game/render/CanvasRenderer.ts",
+          "operation": "modify",
+          "description": "Load and render frontend/public/assets/generated/arena-bg.dim_1920x1080.png as the fight background and use the sprite sheets (fighter-player-sheet.dim_1024x1024.png, fighter-enemy-sheet.dim_1024x1024.png, fighter-boss-sheet.dim_1024x1024.png) for character animations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/hud/FightHud.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/hud-frames.dim_1024x256.png for HUD framing; use frontend/public/assets/generated/element-icons.dim_512x128.png for elemental ability icons; use frontend/public/assets/generated/c-spec-eye-icon.dim_128x128.png for C-spec indicator. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}
